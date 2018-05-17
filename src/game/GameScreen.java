@@ -96,7 +96,7 @@ public class GameScreen implements Initializable {
                 winLabel.setOpacity(1);
                 winLabel.setText("Draw!");
             }
-            if(IsWon()){
+            else if(IsWon()){
                 DisableAllColumns();
                 gameGrid.setOpacity(.4);
                 winLabel.setOpacity(1);
@@ -118,7 +118,7 @@ public class GameScreen implements Initializable {
                 winLabel.setOpacity(1);
                 winLabel.setText("Draw!");
             }
-            if(IsWon()){
+            else if(IsWon()){
                 DisableAllColumns();
                 gameGrid.setOpacity(.4);
                 winLabel.setOpacity(1);
