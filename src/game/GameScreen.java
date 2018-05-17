@@ -2,6 +2,7 @@ package game;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -19,14 +20,14 @@ public class GameScreen implements Initializable {
     String turn = "Black";
 
     @FXML GridPane gameGrid;
+    @FXML Label winLabel;
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
         DeclareStringArray();
-        //DeclareArray();
         hover.setImage(new Image("hover.png"));
         hover.setVisible(false);
-        System.out.println(turn + "'s turn.");
+        winLabel.setDisable(true);
     }
 
     //Creates a 2D array of strings that all equal "Empty" Called in the initialize method.
@@ -90,11 +91,15 @@ public class GameScreen implements Initializable {
             if(lowestSlot == 0){
                 DisableColumn(columnNum);
             }
+            if(IsWon()){
+                DisableAllColumns();
+                gameGrid.setOpacity(.4);
+                winLabel.setOpacity(1);
+                winLabel.setText("Black Wins!");
+            }
             turn = "Red";
-            System.out.println("Red's turn.");
         }
         else if(turn.equals("Red")){
-            System.out.println("Executed Red");
             imageTable[columnNum][lowestSlot] = new ImageView(new Image("testRed.png"));
             imageTable[columnNum][lowestSlot].setFitHeight(100);
             imageTable[columnNum][lowestSlot].setFitWidth(100);
@@ -103,8 +108,13 @@ public class GameScreen implements Initializable {
             if(lowestSlot == 0){
                 DisableColumn(columnNum);
             }
+            if(IsWon()){
+                DisableAllColumns();
+                gameGrid.setOpacity(.4);
+                winLabel.setOpacity(1);
+                winLabel.setText("Red Wins!");
+            }
             turn = "Black";
-            System.out.println("Black's turn.");
         }
 
 
@@ -115,7 +125,6 @@ public class GameScreen implements Initializable {
         int cNum = columnNum;
         int count = 5;
         while(count >= 0){
-            System.out.println(gameTable[columnNum][count]);
             if(gameTable[columnNum][count].equals("Empty")){
                 return count;
             }
@@ -150,8 +159,48 @@ public class GameScreen implements Initializable {
     }
 
     //This method is called in the ColumnPressed method. Always done to check if someone has won.
-    public boolean CheckWon(String c){
+    public boolean IsWon(){
+        for (int r = 0; r < 6; r++) { // iterate rows, top to bottom
+            for (int c = 0; c < 7; c++) { // iterate columns, left to right
+                String color = gameTable[c][r];
+                if (color.equals("Empty"))
+                    continue; // don't check empty slots
+
+                if (r + 3 < 6 &&
+                        color.equals(gameTable[c][r+1]) && // look up
+                        color.equals(gameTable[c][r+2]) &&
+                        color.equals(gameTable[c][r+3]))
+                    return true;
+                if (c + 3 < 7) {
+                    if (color.equals(gameTable[c+1][r]) && // look right
+                            color.equals(gameTable[c+2][r]) &&
+                            color.equals(gameTable[c+3][r]))
+                        return true;
+                    if (r - 3 >= 0 &&
+                            color.equals(gameTable[c+1][r-1]) && // look up & right
+                            color.equals(gameTable[c+2][r-2]) &&
+                            color.equals(gameTable[c+3][r-3]))
+                        return true;
+                    if (c - 3 >= 0 && r - 3 >= 0 &&
+                            color.equals(gameTable[c-1][r-1]) && // look up & left
+                            color.equals(gameTable[c-2][r-2]) &&
+                            color.equals(gameTable[c-3][r-3]))
+                        return true;
+                }
+            }
+        }
         return false;
+    }
+
+    //Disables all column ImageViews. Called when the match is won.
+    public void DisableAllColumns(){
+        column0.setDisable(true);
+        column1.setDisable(true);
+        column2.setDisable(true);
+        column3.setDisable(true);
+        column4.setDisable(true);
+        column5.setDisable(true);
+        column6.setDisable(true);
     }
 
     //--------Column hovered methods. Execute when the mouse is over that column. Column(column#)Hovered---------//

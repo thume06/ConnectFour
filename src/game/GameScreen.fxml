@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -39,5 +40,10 @@
          <image>
             <Image url="@../../assets/hover.png" />
          </image></ImageView>
+      <Label fx:id="winLabel" alignment="CENTER" layoutY="230.0" prefHeight="141.0" prefWidth="700.0" textAlignment="CENTER">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
