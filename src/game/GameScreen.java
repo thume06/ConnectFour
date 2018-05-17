@@ -91,6 +91,11 @@ public class GameScreen implements Initializable {
             if(lowestSlot == 0){
                 DisableColumn(columnNum);
             }
+            if(IsDraw()){
+                gameGrid.setOpacity(.4);
+                winLabel.setOpacity(1);
+                winLabel.setText("Draw!");
+            }
             if(IsWon()){
                 DisableAllColumns();
                 gameGrid.setOpacity(.4);
@@ -108,6 +113,11 @@ public class GameScreen implements Initializable {
             if(lowestSlot == 0){
                 DisableColumn(columnNum);
             }
+            if(IsDraw()){
+                gameGrid.setOpacity(.4);
+                winLabel.setOpacity(1);
+                winLabel.setText("Draw!");
+            }
             if(IsWon()){
                 DisableAllColumns();
                 gameGrid.setOpacity(.4);
@@ -116,14 +126,6 @@ public class GameScreen implements Initializable {
             }
             turn = "Black";
         }
-
-        if(IsDraw()){
-            gameGrid.setOpacity(.4);
-            winLabel.setOpacity(1);
-            winLabel.setText("Draw!");
-        }
-
-
     }
 
     //This method is used by ColumnPressed above. It returns the row# of the lowest open slot, or 99 if there are none
