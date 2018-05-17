@@ -117,6 +117,12 @@ public class GameScreen implements Initializable {
             turn = "Black";
         }
 
+        if(IsDraw()){
+            gameGrid.setOpacity(.4);
+            winLabel.setOpacity(1);
+            winLabel.setText("Draw!");
+        }
+
 
     }
 
@@ -190,6 +196,22 @@ public class GameScreen implements Initializable {
             }
         }
         return false;
+    }
+
+    //Called after every move. Checks if the match is a draw
+    public boolean IsDraw(){
+        if(column0.isDisabled() &&
+                column1.isDisabled() &&
+                column2.isDisabled() &&
+                column3.isDisabled() &&
+                column4.isDisabled() &&
+                column5.isDisabled() &&
+                column6.isDisabled()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //Disables all column ImageViews. Called when the match is won.
