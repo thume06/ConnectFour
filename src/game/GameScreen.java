@@ -88,9 +88,6 @@ public class GameScreen implements Initializable {
             imageTable[columnNum][lowestSlot].setFitWidth(100);
             gameGrid.add(imageTable[columnNum][lowestSlot], columnNum, lowestSlot);
             gameTable[columnNum][lowestSlot] = "Black";
-            if(lowestSlot == 0){
-                DisableColumn(columnNum);
-            }
             if(IsDraw()){
                 gameGrid.setOpacity(.4);
                 winLabel.setOpacity(1);
@@ -102,6 +99,9 @@ public class GameScreen implements Initializable {
                 winLabel.setOpacity(1);
                 winLabel.setText("Black Wins!");
             }
+            if(lowestSlot == 0){
+                DisableColumn(columnNum);
+            }
             turn = "Red";
         }
         else if(turn.equals("Red")){
@@ -110,9 +110,6 @@ public class GameScreen implements Initializable {
             imageTable[columnNum][lowestSlot].setFitWidth(100);
             gameGrid.add(imageTable[columnNum][lowestSlot], columnNum, lowestSlot);
             gameTable[columnNum][lowestSlot] = "Red";
-            if(lowestSlot == 0){
-                DisableColumn(columnNum);
-            }
             if(IsDraw()){
                 gameGrid.setOpacity(.4);
                 winLabel.setOpacity(1);
@@ -123,6 +120,9 @@ public class GameScreen implements Initializable {
                 gameGrid.setOpacity(.4);
                 winLabel.setOpacity(1);
                 winLabel.setText("Red Wins!");
+            }
+            if(lowestSlot == 0){
+                DisableColumn(columnNum);
             }
             turn = "Black";
         }
